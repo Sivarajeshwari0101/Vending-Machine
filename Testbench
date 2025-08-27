@@ -1,0 +1,36 @@
+module ven_mac_tb();
+reg clk,rst,i,j;
+wire x,y;
+
+ven_mac dut(
+.clk(clk),
+.rst(rst),
+.i(i),
+.j(j),
+.x(x),
+.y(y)
+);
+
+initial 
+begin
+  clk=0;
+  forever #20 clk=~clk;
+ end
+
+initial
+ begin
+   i=0;
+	j=0;
+	rst=1;
+	@(negedge clk) rst=1'b0;
+	@(negedge clk) {i,j}=2'b10;
+	@(negedge clk) {i,j}=2'b10;
+	@(negedge clk) {i,j}=2'b01;
+	@(negedge clk) {i,j}=2'b11;
+	@(negedge clk) {i,j}=2'b10;
+	@(negedge clk) {i,j}=2'b11;
+	@(negedge clk) {i,j}=2'b11;
+	#100 $finish;
+ end
+ endmodule
+ 
